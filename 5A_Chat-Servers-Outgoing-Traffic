@@ -1,0 +1,30 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int currentUsers = 0;
+        long totalTraffic = 0;
+
+        while (sc.hasNextLine()) {
+            String line = sc.nextLine();
+            if (line.isEmpty()) continue;
+
+            if (line.startsWith("+")) {
+                currentUsers++;
+            } else if (line.startsWith("-")) {
+                currentUsers--;
+            } else {
+                // It's a message. Find the position of the colon ':'
+                int colonIndex = line.indexOf(':');
+                // The message length is everything after the colon
+                int messageLength = line.length() - colonIndex - 1;
+                // Traffic = length of message * number of users currently in the room
+                totalTraffic += (long) messageLength * currentUsers;
+            }
+        }
+
+        System.out.println(totalTraffic);
+        sc.close();
+    }
+}
